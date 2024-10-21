@@ -1,0 +1,61 @@
+@use './variables' as var;
+@use './Mixins' as *;
+
+.blog_item_result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    width: 100%;  
+    min-height: 100vh;  
+    background-color: var.$background-color;
+  
+
+  h1 {
+    @include h1-style;
+  }
+
+  .blog_item_img {
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  
+    }
+  }
+
+  p {
+    color: var.$text-color;
+    font-size: 1.2em;
+    line-height: 1.6;
+    text-align: justify; //bloque simil periodico
+    margin-top: 1rem;
+    max-width: 800px;
+    margin-bottom: 5em;
+  }
+}
+
+
+@media (max-width: 767px) {
+
+  
+    .blog_item_result {
+      padding-top: 17vh;
+      justify-content: center;
+    
+
+
+    h1 {
+      @include h1-style;
+    }
+
+    p {
+    
+      font-size: 1.5em;
+    }
+  }
+}

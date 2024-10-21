@@ -1,0 +1,190 @@
+@use './variables' as var;
+@use './Mixins' as *;
+
+.quiz-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Alinear elementos en el centro horizontalmente */
+  text-align: center;
+  padding: 14vh;
+
+  h1 {
+    margin-bottom: 20px;
+    color: var.$darkPurple;
+  }
+
+  .quiz-btn {
+    margin-bottom: 2em; 
+    
+    button {
+      padding: 10px 30px;
+      margin: 10px;
+      border-radius: 100px;
+      border: 1px solid #ccc;
+      background-color:var.$spinner;
+      cursor: pointer;
+      color: #fff;
+      font-weight: 600;
+
+      &:hover {
+        background-color: var.$lilac;
+        color: var.$darkPurple;
+      }
+    }
+  }
+
+  .error-msg, .quiz-instructions {
+    margin-bottom: 20px;
+    color: var.$text-color;
+    font-size: 18px;
+  }
+
+  .quiz-instructions {
+    color: var.$text-color;
+    
+  }
+
+  .quiz-results {
+    margin-top: 20px;
+    h2 {
+      color: var.$spinner;
+    }
+
+    button {
+      @include button-style;
+    }
+  }
+
+  .back-button {
+    padding: 8px 30px;
+    background-color: var.$lilac;
+    color: var.$darkPurple;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 2vh;
+   
+
+    &:hover {
+      background-color: #673ab7;
+      color: #fff;;
+      
+    }
+
+  }
+ 
+  .react-quiz-container .startQuizWrapper .startQuizBtn {
+    background-color: var.$btn-color;
+    padding: 10px 30px;
+    color: white;
+    margin-top: 3em;
+    margin-bottom: 3em;
+
+    &:hover {
+      background-color: var.$spinner;
+     
+      
+    }
+
+  }
+
+
+}
+
+@media (max-width: 767px) {
+
+
+  .quiz-wrapper {
+ 
+    max-width: 100%;
+    height: auto;
+    padding: 6em;
+    margin-top: 8vh;
+    margin-bottom: 3em;
+  
+    h1 {
+      margin-bottom: 1em;
+    }
+  
+    .quiz-btn {
+      margin-bottom: 2em; 
+      display: flex;
+      justify-content: space-around;
+      
+      button {
+        padding: 10px 30px;
+        margin: 10px;
+        border-radius: 100px;
+        border: 1px solid #ccc;
+        background-color:var.$spinner;
+        cursor: pointer;
+        color: #fff;
+        font-weight: 600;
+  
+        &:hover {
+          background-color: var.$lilac;
+          color: var.$darkPurple;
+        }
+      }
+    }
+  
+    .error-msg, .quiz-instructions {
+      margin-bottom: 20px;
+      color: var.$text-color;
+      font-size: 18px;
+    }
+  
+    .quiz-instructions {
+      color: var.$text-color;
+      
+    }
+  
+    .quiz-results {
+      margin-top: 20px;
+      h2 {
+        color: var.$spinner;
+      }
+    }
+  
+    .back-button {
+      padding: 8px 30px;
+      background-color: var.$lilac;
+      color: var.$darkPurple;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 2vh;
+     
+  
+      &:hover {
+        background-color: #673ab7;
+        color: #fff;;
+        
+      }
+  
+    }
+   
+    .react-quiz-container .startQuizWrapper .startQuizBtn {
+      background-color: var.$btn-color;
+      padding: 10px 30px;
+      color: white;
+      margin-top: 3em;
+      margin-bottom: 3em;
+  
+      &:hover {
+        background-color: var.$spinner;
+       
+        
+      }
+  
+    }
+  
+  
+  }
+
+    
+}

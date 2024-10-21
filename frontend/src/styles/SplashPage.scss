@@ -1,0 +1,91 @@
+@use './variables' as var;
+
+.splash-midsection-wrapper {
+    display: flex;
+    height: 77vh;
+    position: relative;
+    padding-top: 23vh;
+
+    
+    
+
+    .welcome-msg {
+        display: flex;
+        align-items: center;
+        font-family: 'Rubik Doodle Triangles', Arial, sans-serif;
+        font-size: 2em;
+        font-weight: 500;
+        margin-left: 5rem;
+        color: var.$btn-color;
+        margin-bottom: 3rem;
+    }
+    
+
+    .splash-welcome-message{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        max-width: 100%;
+        height: auto;
+        padding: 50px;
+        
+
+        p {
+            margin-top: 1.2rem;
+            margin-bottom: 1rem;
+            font-family: 'Urbanist', sans-serif;
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: var.$darkPurple;
+        }
+    }
+
+    .splash-img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        
+        
+
+        img {
+            max-width: 80%;
+            height: auto;
+
+        }
+    }
+
+}
+
+@media (max-width: 767px) {
+
+    .splash-midsection-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        position: relative;
+        padding-bottom: 12vh;
+    
+    
+        
+    
+        .splash-welcome-message{
+
+
+            .welcome-msg {
+                margin-left: 10rem;
+                padding: 1em;
+                margin-left: 1em;
+                text-align: center;
+            }
+            
+    
+            p {
+                text-align: center;
+            }
+        }
+
+    
+    }
+}

@@ -1,0 +1,57 @@
+@use './variables' as var; //más moderna que @import y da menos errores globales
+
+.footer-wrapper {
+    width: 100%;
+    height: 12vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var.$quiz-color;
+    position: fixed;
+    bottom: 0;
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.08);
+    z-index: 1000; 
+  
+    .footer-messages {
+      display: flex;
+      flex-direction: column;  
+      align-items: center;
+      justify-content: center;
+      margin-top: 1em;  
+  
+      h1 {
+        font-family: 'Londrina shadow', sans-serif;
+        font-size: 2em;
+        color: var.$darkPurple;
+        margin-top: 0.3rem;  
+      }
+  
+      svg {
+        color: var.$darkPurple;
+        
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    .footer-wrapper {
+
+      .footer-messages {
+
+        h1 {
+          text-align: center;
+          font-size: 1em;
+          font-family: 'kalam', sans-serif;
+          margin-top: 0.3rem;
+        }
+
+        svg {
+          margin-top: 0.7em;
+          transform: scale(0.7);
+          
+        }
+    
+      }
+    }
+  }
+  

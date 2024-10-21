@@ -1,0 +1,157 @@
+@use './variables' as var;
+
+.form-page-wrapper {
+  display: flex;
+  min-height: 100vh;  // Altura mínima de la página completa
+  padding-top: 11vh;  // Espacio debajo de la navbar
+  padding-bottom: 6vh;  // Espacio encima del footer
+
+  .form-image-section {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 80%;
+    height: auto;
+
+    img{
+      max-width: 50%;
+    }
+  }
+
+  .form-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;   
+    background-color: var.$quiz-color;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 350px;
+      min-height: auto;
+      font-size: 1em;
+      margin-top: -5em;   
+    }
+
+    .form-header p {
+      font-size: 1.5em;
+      padding-bottom: 20%;
+      font-family: 'urbanist', sans-serif;
+      color: var.$text-color;
+    }
+    
+  
+  
+
+    .input-group {
+      position: relative;
+      width: 100%;
+      margin-bottom: 7%; 
+
+      svg {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        font-size: 1.2em;
+        color: #999;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px 10px 10px 35px;   
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-family: 'urbanist', sans-serif;
+
+        &:focus {
+          outline: none;
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+      }
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 10px;
+      margin-top: 1em;
+      font-size: 1em;
+      font-family: 'urbanist', sans-serif;
+      font-weight: 800;
+      background-color: var.$spinner;
+      color: var.$quiz-color;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+      svg {
+        margin-right: 8px;
+        font-size: 1.2em;
+      }
+
+      &:hover {
+        background-color: var.$btn-color;
+      }
+    }
+
+    .password-requirements {
+      font-size: 0.9em;
+      color: var.$text-color;
+      margin-top: 10px;
+      line-height: 1.5;
+      font-family: 'urbanist', sans-serif;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+
+  .form-page-wrapper {
+  
+  
+    .form-image-section {
+      display: none; 
+    }
+  
+    .form-section {
+        
+      .form-header p {
+        font-size: 2em;
+        font-weight: 700;
+        color: var.$darkPurple;
+      }
+      
+
+      .input-group {
+  
+        svg {
+          color: var.$darkPurple;
+        }
+  
+        input {
+          color: var.$darkPurple;
+        }
+      }
+
+      p.password-requirements{
+        color: var.$darkPurple;
+        font-size: 1em;
+        font-weight: 600;
+  
+      }
+  
+    }
+  }
+
+
+  
+}

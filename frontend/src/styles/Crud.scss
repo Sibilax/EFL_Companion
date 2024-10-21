@@ -1,0 +1,119 @@
+@use './variables' as var;
+@use './Mixins' as *;
+
+.crud-wrapper {
+    padding: 1em 3em 10em 3em;
+    
+
+    h1 {
+        @include h1-style;
+    }
+
+    h2 {
+        @include h1-style;
+    }
+  
+    .crud-buttons {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: nowrap;
+      margin-bottom: 1em;
+
+      button{
+        display: flex;
+        @include button-style;
+      }
+      
+    }
+  
+    .crud-inputs {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      
+  
+      .input-group {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 1em;
+        flex-wrap: nowrap;  // Evita que los inputs se vayan a la siguiente línea
+
+        input {
+            @include input-style;
+            margin: 0.5em;
+        }
+
+        .input-group-textarea{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
+            textarea {
+                padding: 8em;
+            }
+
+            
+        }
+
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+
+    .crud-wrapper {
+      padding: 1em;
+      margin-bottom: 10vh;
+
+      .crud-buttons {
+        display: flex;
+        flex-direction: column;
+        
+  
+        button{
+          display: flex;
+          flex-wrap: wrap;
+          margin-bottom: 2em;
+          @include button-style;
+          font-weight: 600;
+          font-size: 1em;;
+        }
+        
+      }
+    
+      .crud-inputs {
+  
+        .input-group {
+          flex-direction: column;
+      
+          input {
+            
+              @include input-style;
+              margin: 0.5em;
+              border: 1px solid var.$darkPurple;
+          }
+  
+          .input-group-textarea{
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              
+              textarea {
+                  padding: 8em;
+              }
+  
+              
+          }
+  
+        }
+      }
+    }
+ 
+ }
+
+  

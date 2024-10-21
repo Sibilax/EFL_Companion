@@ -1,0 +1,78 @@
+@use './variables' as var;
+@use './Mixins' as *;
+
+.results-container {
+  padding-top: 12vh; /* Deja espacio para la navbar sticky */
+  padding-bottom: 12vh; /* Deja espacio para el footer */
+  background-color: var.$background-color;
+  color: var.$text-color;
+  min-height: 100vh; /* Asegura que cubra toda la pantalla */
+  box-sizing: border-box; /* Asegura que el padding y el margen no afecten el layout */
+  overflow-y: auto; /* Permite el desplazamiento vertical cuando sea necesario */
+
+
+  h2 {
+    @include h2-style
+
+  }
+
+  .error-text {
+    color: var.$warning;
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+
+  .loading-text {
+    color: var.$text-color;
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var.$quiz-color;
+  padding: 1.5em;
+  margin: 2em;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+  h3 {
+    color: var.$darkPurple;
+    font-size: 1.5rem;
+    margin-right: 10px;
+    font-family: 'kalam', sans-serif;
+
+    &:hover {
+      color: var.$spinner;
+
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: var.$spinner;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+  }
+
+  a:hover {
+    color: var.$btn-color;  
+  }
+
+  .arrow-icon {
+    font-size: 1.5rem;
+    color: var.$btn-color;
+    transition: color 0.3s ease;
+  
+
+    &:hover {
+      color: var.$spinner;  
+    }
+  }
+}
+

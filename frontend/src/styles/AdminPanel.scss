@@ -1,0 +1,57 @@
+@use './variables' as var;
+@use './Mixins' as *;
+
+.admin-panel-wrapper {
+    display: flex;
+    flex-direction: column;  
+    justify-content: center; // Centrar verticalmente
+    align-items: center;     // Centrar horizontalmente
+    margin: 0.5em 0;
+    min-height: 100vh;        
+
+    h1 {
+        @include h1-style;
+    }
+
+    .admin-panel-buttons {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;   
+        gap: 1em;         
+
+        button {
+            @include button-style;
+        }
+    }
+
+
+}
+
+@media (max-width: 767px) {
+
+    .admin-panel-wrapper {
+
+        .admin-panel-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            margin: 0.5;
+            flex-wrap: wrap;  //para q los botones se ajusten si no hay espacio suficiente
+            gap: 1em;         
+    
+            button {
+                @include button-style;
+                font-weight: 600;
+                font-size: 1.5em;
+                
+            }
+        }
+
+    }
+ 
+}
+
+
+
+
+

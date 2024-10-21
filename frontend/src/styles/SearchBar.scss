@@ -1,0 +1,38 @@
+@use './variables' as var;
+
+.searchbar-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 600px; 
+  width: 100%;  
+}
+
+.input-wrapper {
+  position: relative; /* para usar absolute con el icono */
+}
+
+.search-input {
+  width: 100%;
+  max-width: 100%;  
+  padding-left: 35px;
+  height: 35px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+  &:focus {
+    outline: none; /* Quita el borde oscuro por defecto */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);  
+  }
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px; 
+  top: 50%;
+  transform: translateY(-50%); //centra verticalmente un elemento dentro de su contenedo
+  cursor: pointer;
+  color: var.$darkPurple; 
+}

@@ -1,0 +1,73 @@
+@use './variables' as var;
+@use './Mixins' as *;
+
+.contact-form-wrapper {
+
+  padding-top: 11vh;
+  margin-top: 1vh;
+
+
+  h1 {
+    margin-top: 0.1em;
+    @include h1-style;
+  }
+
+
+  .contact-form-container {
+    max-width: 800px;
+    min-height: 600px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: var.$background-color;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+   
+  }
+
+  .contact-form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+
+  .contact-form textarea {
+    height: 150px;
+    resize: vertical;
+  }
+
+  .contact-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: var.$btn-color;
+    color: var.$quiz-color;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .contact-form button:disabled {
+    background-color: #ccc;
+  }
+}
+
+.contact-msg-sent  p {
+  margin-top: 15em;
+  display: flex;
+  justify-content: center;
+  color: var.$spinner;
+  font-family: 'kalam', sans-serif;
+  font-weight: 700;
+}
+

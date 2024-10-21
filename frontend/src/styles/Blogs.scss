@@ -1,0 +1,110 @@
+@use './variables' as var;
+@use './Mixins' as *;
+
+.blogs-wrapper {
+    max-width: 100%;
+    height: auto;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 12vh;
+    
+    h1 {
+     @include h1-style;
+    }
+  
+  
+
+  
+  .blog-item {
+    background-color: #f9f9f9;
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  
+  
+    h2 {
+      font-family: 'Londrina shadow', sans-serif;
+      font-size: 1.8em;
+      color: var.$spinner;
+      margin-bottom: 20px;
+    }
+    
+    p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: var.$darkPurple;
+      margin-bottom: 20px;
+    }
+  }
+  
+  .blog-item a {
+    text-decoration: none; /* Eliminar el subrayado */
+    color: var.$btn-color; 
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .blog-item a:hover {
+    color: var.$spinner; 
+  }
+  
+  
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .spinner {
+    font-size: 2em;
+    color: var.$spinner;
+  }
+  
+  p {
+    margin-left: 10px;
+    font-size: 1.2em;
+    color: #666;
+  }
+}
+  
+
+@media (max-width: 767px) {
+
+
+  .blogs-wrapper {
+    padding: 0.5em;
+    max-width: 100%;
+    padding-bottom: 15vh;
+    margin-top: 20vh; 
+     
+
+    .blog-item {
+      
+
+      h2 {
+        font-size: 2.5em;
+      }
+      
+      p {
+        font-size: 1.6em;
+        line-height: 1.3;
+        color: var.$darkPurple;
+        margin-bottom: 1em;
+      }
+
+     
+
+    }
+
+    .blog-item a {
+
+      font-size: 1.4em;
+    }
+
+  }
+   
+}
