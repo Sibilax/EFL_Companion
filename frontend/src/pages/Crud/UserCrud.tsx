@@ -158,8 +158,28 @@ const UserCrud: React.FC = () => {
                   </div>
 
                   <div className="button-container">
-                    <button onClick={handleDelete}>Delete User</button>
-                    <button onClick={handleUpdate}>Update User</button>
+                    <button
+                      onClick={() => {
+                        setUserId(user.user_id);
+                        const confirmDelete = window.confirm(
+                          `Do you want to delete the user with the follwing ID: ${user.user_id}?`
+                        );
+                        if (confirmDelete) {
+                          handleDelete();
+                        }
+                      }}
+                    >
+                      Delete User
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setUserId(user.user_id);
+                        setActiveTab("update");
+                      }}
+                    >
+                      Update User
+                    </button>
                   </div>
                 </li>
               ))}
