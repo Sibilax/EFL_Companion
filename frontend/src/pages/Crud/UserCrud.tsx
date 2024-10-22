@@ -11,7 +11,8 @@ const UserCrud: React.FC = () => {
   const [formData, setFormData] = useState({
     user_name: "",
     user_email: "",
-    user_pwd: ""
+    user_pwd: "",
+    user_status: "inactive",
   });
 
   const [loading, setLoading] = useState(false);
@@ -29,7 +30,10 @@ const UserCrud: React.FC = () => {
   };
 
   // Manejar cambios en el formulario
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    //importante establecer el tipo de elemento
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -38,7 +42,12 @@ const UserCrud: React.FC = () => {
     try {
       await axios.post("http://localhost:5000/user", formData, config);
       alert("User creado con éxito");
-      setFormData({ user_name: "", user_email: "", user_pwd: "" });
+      setFormData({
+        user_name: "",
+        user_email: "",
+        user_pwd: "",
+        user_status: "inactive",
+      });
     } catch (error: any) {
       alert("Error al crear usuario");
     } finally {
@@ -72,6 +81,7 @@ const UserCrud: React.FC = () => {
     if (formData.user_name) updatedData.user_name = formData.user_name; //si se ingresa algo al input, se va a almacenar en esta variable updatedData, con esta clave user_name y el valor del input
     if (formData.user_email) updatedData.user_email = formData.user_email;
     if (formData.user_pwd) updatedData.user_pwd = formData.user_pwd;
+    if (formData.user_status) updatedData.user_status = formData.user_status;
 
     try {
       await axios.put(
@@ -80,7 +90,12 @@ const UserCrud: React.FC = () => {
         config //autenticación q estaba alñmacenada en local storage
       );
       alert("Usuario actualizado con éxito");
-      setFormData({ user_name: "", user_email: "", user_pwd: "" });
+      setFormData({
+        user_name: "",
+        user_email: "",
+        user_pwd: "",
+        user_status: "",
+      });
       setUserId(""); // Limpiar ID después de la actualización
     } catch (error: any) {
       alert("Error al actualizar usuario");
@@ -236,6 +251,14 @@ const UserCrud: React.FC = () => {
               placeholder="Password"
               onChange={handleChange}
             />
+            <select
+              name="user_status"
+              value={formData.user_status}
+              onChange={handleChange}
+            >
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
           </div>
           <div className="crud-buttons">
             <button onClick={handleUpdate}>Update User</button>
