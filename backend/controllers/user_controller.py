@@ -179,6 +179,7 @@ def update_user(user_id):
     name = request.json.get('user_name')
     email = request.json.get('user_email')
     password = request.json.get('user_pwd')
+    status = request.json.get('user_status')
 
     try:
         user = User.query.get(user_id)
@@ -192,6 +193,8 @@ def update_user(user_id):
             user.user_email = email
         if password:
             user.user_pwd = password
+        if status:
+            user.user_status = status
 
         db.session.commit()
         return jsonify({"message": "User updated successfully"}), 200

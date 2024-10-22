@@ -69,18 +69,14 @@ const NavBar: React.FC<NavBarProps> = ({
     // Navbar para cuando el usuario está logueado
     navbarContent = (
       <>
-        <div className={`navbar-nav-links-wrapper ${menuOpen ? "open" : ""}`}> {/*para dar estilos*/}
+        <div className={`navbar-nav-links-wrapper ${menuOpen ? "open" : ""}`}>
+          {" "}
+          {/*para dar estilos*/}
           <NavLink
             to="/home"
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Home
-          </NavLink>
-          <NavLink
-            to="/blogs"
-            className={({ isActive }) => (isActive ? "active" : "")}
-          >
-            Blogs
           </NavLink>
           <NavLink
             to="/quizzes"
@@ -93,6 +89,12 @@ const NavBar: React.FC<NavBarProps> = ({
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Videos
+          </NavLink>
+          <NavLink
+            to="/blogs"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Blogs
           </NavLink>
           <NavLink
             to="/contact"
@@ -125,9 +127,9 @@ const NavBar: React.FC<NavBarProps> = ({
           <Logo size={80} />
         </NavLink>
       </div>
-      
-          <Burger isOpen={menuOpen} toggleMenu={() => setMenuOpen(!menuOpen)} />{/*Paso props al componente burger, */}
-        
+
+      <Burger isOpen={menuOpen} toggleMenu={() => setMenuOpen(!menuOpen)} />
+      {/*Paso props al componente burger, */}
 
       {navbarContent}
     </nav>

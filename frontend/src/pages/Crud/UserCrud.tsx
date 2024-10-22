@@ -11,7 +11,7 @@ const UserCrud: React.FC = () => {
   const [formData, setFormData] = useState({
     user_name: "",
     user_email: "",
-    user_pwd: "",
+    user_pwd: ""
   });
 
   const [loading, setLoading] = useState(false);

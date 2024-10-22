@@ -14,8 +14,8 @@ import { Results, VideoItem, BlogItem } from "./pages/Results";
 import { AdminPanel } from "./pages/Crud";
 
 const App: React.FC = () => {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false); // Estado inicial para el login de usuarios
-  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState<boolean>(false); // Estado para el login de administradores
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState<boolean>(false);
 
   // Efecto para comprobar el token de login al cargar la app
   useEffect(() => {
@@ -31,17 +31,12 @@ const App: React.FC = () => {
     }
   }, []);
 
-  // Función para verificar si se debe mostrar el footer
   const shouldShowFooter = () => {
-    return (
-      location.pathname !== "/login" && // No mostrar footer en la página de login
-      location.pathname !== "/signup" // No mostrar footer en la página de signup
-    );
+    return location.pathname !== "/login" && location.pathname !== "/signup";
   };
 
   return (
     <Router>
-      {/* Navbar, la renderizo fuera de las rutas para que esté siempre visible */}
       <NavBar
         isUserLoggedIn={isUserLoggedIn}
         isAdminLoggedIn={isAdminLoggedIn}
@@ -50,10 +45,8 @@ const App: React.FC = () => {
       />
 
       <Routes>
-        {/* Ruta principal: página que se muestra si el usuario no está logueado */}
         <Route path="/" element={<SplashPage />} />
 
-        {/* Rutas de login y signup */}
         <Route
           path="/login"
           element={<Login setIsLoggedIn={setIsUserLoggedIn} />}
@@ -63,15 +56,10 @@ const App: React.FC = () => {
           element={<SignUp setIsLoggedIn={setIsUserLoggedIn} />}
         />
 
-        {/* Rutas protegidas para usuarios logueados */}
         <Route
           path="/home"
           element={
-            isUserLoggedIn || isAdminLoggedIn ? (
-              <Home /> // Si el usuario está logueado, muestra la página de inicio
-            ) : (
-              <Navigate to="/" />
-            ) // Si no está logueado, redirige a la página splash
+            isUserLoggedIn || isAdminLoggedIn ? <Home /> : <Navigate to="/" />
           }
         />
 
@@ -116,13 +104,11 @@ const App: React.FC = () => {
         <Route path="/results" element={<Results />} />
         <Route path="/blog/:blog_id" element={<BlogItem />} />
 
-        {/* Ruta para el login de administrador */}
         <Route
           path="/admin/login"
-          element={<LoginAdmin setIsLoggedIn={setIsAdminLoggedIn} />} 
+          element={<LoginAdmin setIsLoggedIn={setIsAdminLoggedIn} />}
         />
 
-        {/* Rutas protegidas */}
         {isAdminLoggedIn && (
           <>
             <Route path="/admin/panel" element={<AdminPanel />} />
@@ -130,7 +116,6 @@ const App: React.FC = () => {
         )}
       </Routes>
 
-      {/* Mostrar el footer según la ruta */}
       {shouldShowFooter() && <Footer />}
     </Router>
   );
