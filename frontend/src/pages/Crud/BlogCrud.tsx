@@ -37,20 +37,23 @@ const BlogCrud: React.FC = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // arga de imágenes
+  // carga de imágenes
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];// Obtengo el primer archivo seleccionado
+    const file = e.target.files?.[0]; // Obtengo el primer archivo seleccionado, index 0
     if (file) {
-      setFormData((prev) => ({ ...prev, blog_img: file }));// Actualizo el estado con el archivo, copio todos los valores y agrego otro
+      setFormData((prev) => ({ ...prev, blog_img: file })); // Actualizo el estado con el archivo, copio todos los valores y agrego otro
     }
   };
 
-
   const handleCreate = async () => {
-    const formattedFormData = {
-      ...formData,
-      blog_content: formData.blog_content.trim(),
-    };
+    const formattedFormData = new FormData();
+
+    formattedFormData.append("blog_title", formData.blog_title.trim());
+    formattedFormData.append("blog_content", formData.blog_content.trim());
+
+    if (formData.blog_img) {
+      formattedFormData.append("blog_img", formData.blog_img);
+    }
 
     try {
       await axios.post("http://localhost:5000/blog", formattedFormData, config);
@@ -58,9 +61,9 @@ const BlogCrud: React.FC = () => {
       setFormData({ blog_title: "", blog_content: "", blog_img: null });
     } catch (error: any) {
       alert("Error creating the blog. Verify the data.");
+      console.error("Error details:", error.response?.data || error.message);
     }
   };
-
 
   const handleList = async () => {
     setLoading(true);
@@ -74,7 +77,6 @@ const BlogCrud: React.FC = () => {
     }
   };
 
-
   const fetchBlogDetail = async (id: string) => {
     setLoading(true);
     try {
@@ -87,8 +89,6 @@ const BlogCrud: React.FC = () => {
     }
   };
 
-  
-  
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:5000/blog/${blogId}`, config);
@@ -97,7 +97,6 @@ const BlogCrud: React.FC = () => {
       alert("Error deleting blog.");
     }
   };
-
 
   const handleUpdate = async () => {
     const updatedData: any = {};
@@ -155,7 +154,6 @@ const BlogCrud: React.FC = () => {
       }
     }
   };
-
 
   useEffect(() => {
     if (activeTab === "list") {

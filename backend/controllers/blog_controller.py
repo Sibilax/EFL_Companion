@@ -10,21 +10,19 @@ blog_bp = Blueprint('blog', __name__)
 @blog_bp.route('/blog', methods=["POST"])
 @admin_permits
 def create_blog():
-    title = request.json.get('blog_title')
-    content = request.json.get('blog_content')
-    img_base64 = request.json.get('blog_img')  # Recibe la imagen en formato Base64
+    title = request.form.get('blog_title')  # deben ser request.form porque los datos son enviados como multipart/form-data, que es el formato adecuado para formularios que contienen archivos (como imágenes).
+    content = request.form.get('blog_content')  
+    img_file = request.files.get('blog_img')  
 
     if not title or not content:
         return jsonify({"error": "Please check the required fields"}), 400
 
     try:
         img_binary = None
-        if img_base64:
-            if "," in img_base64:
-                img_base64 = img_base64.split(",")[1]  # Remover el encabezado 'data:image/png;base64,'. Es el índice 1 de la coma: parts = img_base64.split(","), sin el data...png;(índice 0)
-            img_binary = base64.b64decode(img_base64)  # Convertir a binario para q se transfiera sin errores
+        if img_file:  #
+            img_binary = img_file.read()  # Lee el contenido del archivo y convierte la imagen a un formato binario que puede ser almacenado en la base de datos
 
-        new_blog = Blog(blog_title=title, blog_content=content, blog_img=img_binary)
+        new_blog = Blog(blog_title=title, blog_content=content, blog_img=img_binary)  # se agrega un nuevo elemento a la tabla de la db
         db.session.add(new_blog)
         db.session.commit()
 
@@ -32,8 +30,9 @@ def create_blog():
 
     except Exception as e:
         db.session.rollback()
-        logging.error(f"Error al crear el blog: {str(e)}")
-        return jsonify({"error": str(e)}), 500
+        logging.error(f"Error al crear el blog: {str(e)}") # función logging q registra errores, funcioón str(e) convierte el error a un mensaje legible
+        return jsonify({"error": "An error occurred while creating the blog."}), 500
+
 
 @blog_bp.route('/blogs', methods=['GET'])
 def get_blogs():
