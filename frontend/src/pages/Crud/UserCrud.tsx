@@ -5,7 +5,7 @@ import "../../styles/Crud.scss";
 
 const UserCrud: React.FC = () => {
   const [activeTab, setActiveTab] = useState<
-    "create" | "list" | "delete" | "update"
+    "create" | "add" | "list" | "delete" | "update"
   >("list");
 
   const [formData, setFormData] = useState({
@@ -18,6 +18,7 @@ const UserCrud: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
   const [userId, setUserId] = useState("");
+  const [file, setFile] = useState<File | null>(null);
 
   // Obtener el token de admin desde localStorage
   const adminToken = localStorage.getItem("adminToken");
@@ -70,9 +71,33 @@ const UserCrud: React.FC = () => {
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:5000/user/${userId}`, config);
-      alert("Usuario eliminado con éxito");
+      alert("User deleted successfully");
     } catch (error: any) {
-      alert("Error al eliminar usuario");
+      alert("Error deleting user");
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0]; // Accede al primer archivo seleccionado
+    if (selectedFile) {
+      setFile(selectedFile); // Actualiza el estado con el archivo
+    }
+  };
+
+  const handleUploadCSV = async () => {
+    if (!file) return;
+
+    const formData = new FormData(); //nuevo objeto formdata
+    formData.append("file", file); //adjunto el archivo file(el real) del campo o key "file"
+
+    try {
+      setLoading(true); //para q al ejecutar la funcións e pueda deshabilitar el envío
+      await axios.post("http://localhost:5000/user/csv", formData, config);
+      alert("Users added successfully");
+    } catch (error) {
+      alert("Error adding users");
+    } finally {
+      setLoading(false); // Desactiva el estado de carga
     }
   };
 
@@ -94,7 +119,7 @@ const UserCrud: React.FC = () => {
         user_name: "",
         user_email: "",
         user_pwd: "",
-        user_status: "",
+        user_status: "inactive",
       });
       setUserId(""); // Limpiar ID después de la actualización
     } catch (error: any) {
@@ -110,7 +135,21 @@ const UserCrud: React.FC = () => {
         <button onClick={() => setActiveTab("list")}>Show Users</button>
         <button onClick={() => setActiveTab("delete")}>Delete User</button>
         <button onClick={() => setActiveTab("update")}>Update User</button>
+        <button onClick={() => setActiveTab("add")}>Add CSV</button>
       </div>
+
+      {activeTab === "add" && (
+        <div className="crud-inputs">
+          <h2>Add Users from CSV</h2>
+          <input type="file" accept=".csv" onChange={handleFileChange} />{" "}
+          {/*limito la extensión del archivo */}
+          <button onClick={handleUploadCSV} disabled={loading}>
+            {" "}
+            {/*desahabilito la función mientras carga */}
+            Upload CSV
+          </button>
+        </div>
+      )}
 
       {activeTab === "create" && (
         <div className="crud-inputs">

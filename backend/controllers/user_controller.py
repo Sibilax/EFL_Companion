@@ -2,12 +2,59 @@ from flask import Blueprint, request, jsonify
 from extensions import db  
 from marshmallow.exceptions import ValidationError
 from sqlalchemy.exc import IntegrityError
+import csv
+
 
 from models.user import User
 from schemas.user_schema import user_schema, users_schema 
 from decorators.admin_permits import admin_permits
 
 user_bp = Blueprint('user', __name__)
+
+
+@user_bp.route('/user/csv', methods=["POST"])
+@admin_permits 
+def register_user_csv():
+    file = request.files.get('file') # almaceno en la variable file el elemento con nombre 'file' obtenido de la request
+
+    if not file or file.filename == '':  #ese file(s) hace referencia al nombre del input desde el frontend y deben coincidir
+        return jsonify({"error": "No selected file"}), 400  #filename, propiedad de los objetos file q devuelve el nombre, extensión inclída
+
+
+    if file and file.filename.endswith('.csv'):
+        try:
+            # Leer el archivo CSV, es decir, accede al contenido
+            csv_file = csv.reader(file.stream.read().decode('utf-8-sig').splitlines()) # utilizo la biblioteca csv de py. file.stream.read() accede a todo el contenido, convierte a cadena de texto utf-8 y split cada cadena en lineas d e text individuales 
+            next(csv_file)  # o sea que va a separar la contraseña el nombre, etc en elementos independientes y next hace q salte al siguiente elemento iterable
+
+            users = []  # Inicializo la lista para almacenar diccionarios
+
+            for row in csv_file:
+                if len(row) < 3:
+                    continue 
+                user_name, user_email, user_pwd = row #asigno cada elemento de row a una variable, deben coincidir con el orden en q se almacenaron en el csv
+                users.append({"user_name": user_name, "user_email": user_email, "user_pwd": user_pwd}) #convierto a diccionario y almaceno c/variable como valor. estos diccionarios se almacenan en la lista [] users
+
+            for user_data in users:
+                new_user = User(
+                    user_name=user_data["user_name"],
+                    user_email=user_data["user_email"],
+                    user_pwd=user_data["user_pwd"]  #se encripta en el modelo
+                )
+
+                db.session.add(new_user)  # Agrego el nuevo usuario a la sesión de la base de datos
+
+            db.session.commit()  # Realiza la transacción
+
+            return jsonify({"message": "Users registered successfully"}), 201
+
+        except Exception as e:
+            db.session.rollback()  # Revierte la transacción en caso de error
+            return jsonify({"error": str(e)}), 500
+
+    return jsonify({"error": "Invalid file format"}), 400           
+
+
 
 @user_bp.route('/register', methods=["POST"])
 def register_user():

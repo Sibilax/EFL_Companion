@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 
 const CrudReturn: React.FC = () => {
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   const handleBack = () => {
-    navigate("/admin/panel");  
+    navigate("/admin/panel");
   };
 
   return (
