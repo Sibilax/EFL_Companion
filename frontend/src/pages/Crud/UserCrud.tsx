@@ -42,7 +42,7 @@ const UserCrud: React.FC = () => {
     setLoading(true); // Activa el estado de carga
     try {
       await axios.post("http://localhost:5000/user", formData, config);
-      alert("User creado con éxito");
+      alert("User created successfully");
       setFormData({
         user_name: "",
         user_email: "",
@@ -50,7 +50,7 @@ const UserCrud: React.FC = () => {
         user_status: "inactive",
       });
     } catch (error: any) {
-      alert("Error al crear usuario");
+      alert("Error creating user");
     } finally {
       setLoading(false); // Desactiva el estado de carga al final
     }
@@ -114,7 +114,7 @@ const UserCrud: React.FC = () => {
         updatedData, //envío los datos actualizados al servidor
         config //autenticación q estaba alñmacenada en local storage
       );
-      alert("Usuario actualizado con éxito");
+      alert("Usuario successfully updated");
       setFormData({
         user_name: "",
         user_email: "",
@@ -123,7 +123,7 @@ const UserCrud: React.FC = () => {
       });
       setUserId(""); // Limpiar ID después de la actualización
     } catch (error: any) {
-      alert("Error al actualizar usuario");
+      alert("Error updating user");
     }
   };
 
@@ -141,13 +141,17 @@ const UserCrud: React.FC = () => {
       {activeTab === "add" && (
         <div className="crud-inputs">
           <h2>Add Users from CSV</h2>
-          <input type="file" accept=".csv" onChange={handleFileChange} />{" "}
-          {/*limito la extensión del archivo */}
-          <button onClick={handleUploadCSV} disabled={loading}>
-            {" "}
-            {/*desahabilito la función mientras carga */}
-            Upload CSV
-          </button>
+          <div className="input-group">
+            <input type="file" accept=".csv" onChange={handleFileChange} />{" "}
+            {/*limito la extensión del archivo */}
+          </div>
+
+          <div className="crud-buttons">
+            <button onClick={handleUploadCSV} disabled={loading}>
+              {/*desahabilito la función mientras carga */}
+              Upload CSV
+            </button>
+          </div>
         </div>
       )}
 
