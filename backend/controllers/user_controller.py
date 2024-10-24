@@ -46,7 +46,7 @@ def register_user_csv():
 
             db.session.commit()  # Realiza la transacción
 
-            return jsonify({"message": "Users registered successfully"}), 201
+            return jsonify({"message": "Users added successfully"}), 201
 
         except Exception as e:
             db.session.rollback()  # Revierte la transacción en caso de error

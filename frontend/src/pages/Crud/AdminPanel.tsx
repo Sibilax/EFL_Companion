@@ -5,8 +5,10 @@ import {
   BlogCrud,
   VideoCrud,
   TagCrud,
-  CourseCrud
-} from './index';
+  CourseCrud,
+  AnswerCrud,
+  QuestionCrud,
+} from "./index";
 
 import "../../styles/AdminPanel.scss";
 
@@ -18,6 +20,8 @@ const AdminPanel: React.FC = () => {
     | "video"
     | "tag"
     | "course"
+    | "answer"
+    | "question"
     | null
   >(null);
 
@@ -31,6 +35,10 @@ const AdminPanel: React.FC = () => {
         <button onClick={() => setActiveTab("video")}>Manage Videos</button>
         <button onClick={() => setActiveTab("tag")}>Manage Tags</button>
         <button onClick={() => setActiveTab("course")}>Manage Courses</button>
+        <button onClick={() => setActiveTab("answer")}>Manage Answers</button>
+        <button onClick={() => setActiveTab("question")}>
+          Manage Questions
+        </button>
       </div>
 
       {activeTab === "admin" && <AdminCrud />}
@@ -39,6 +47,8 @@ const AdminPanel: React.FC = () => {
       {activeTab === "video" && <VideoCrud />}
       {activeTab === "tag" && <TagCrud />}
       {activeTab === "course" && <CourseCrud />}
+      {activeTab === "answer" && <AnswerCrud />}
+      {activeTab === "question" && <QuestionCrud />}
     </div>
   );
 };

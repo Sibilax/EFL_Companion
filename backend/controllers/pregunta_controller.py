@@ -3,7 +3,7 @@ from extensions import db
 from marshmallow.exceptions import ValidationError
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload  #para que devuelva respuestas y preguntas juntas sin tener que usar append
-
+import csv
 
 from models.quiz_pregunta import QuizPregunta
 from models.quiz_respuesta import QuizRespuesta
@@ -12,6 +12,50 @@ from schemas.quiz_pregunta_schema import quiz_pregunta_schema, quiz_preguntas_sc
 from decorators.admin_permits import admin_permits
 
 pregunta_bp = Blueprint('pregunta', __name__)
+
+
+@pregunta_bp.route('/preguntas/csv', methods=["POST"])
+@admin_permits 
+def register_question_csv():
+    file = request.files.get('file') # almaceno en la variable file el elemento con nombre 'file' obtenido de la request
+
+    if not file or file.filename == '':  #ese file(s) hace referencia al nombre del input desde el frontend y deben coincidir
+        return jsonify({"error": "No selected file"}), 400  #filename, propiedad de los objetos file q devuelve el nombre, extensión inclída
+
+
+    if file and file.filename.endswith('.csv'):
+        try:
+            # Leer el archivo CSV, es decir, accede al contenido
+            csv_file = csv.reader(file.stream.read().decode('utf-8-sig').splitlines()) # utilizo la biblioteca csv de py. file.stream.read() accede a todo el contenido, convierte a cadena de texto utf-8 y split cada cadena en lineas d e text individuales 
+            next(csv_file)  # o sea que va a separar la contraseña el nombre, etc en elementos independientes y next hace q salte al siguiente elemento iterable
+
+            questions = []  # Inicializo la lista para almacenar diccionarios
+
+            for row in csv_file:
+                if len(row) < 2:
+                    continue 
+                quiz_pregunta_nivel, quiz_pregunta_contenido = row #asigno cada elemento de row a una variable, deben coincidir con el orden en q se almacenaron en el csv
+                questions.append({"nivel": quiz_pregunta_nivel, "pregunta": quiz_pregunta_contenido}) #convierto a diccionario y almaceno c/variable como valor. estos diccionarios se almacenan en la lista [] users
+
+            for question_data in questions:
+                new_question = QuizPregunta(
+                    quiz_pregunta_nivel=question_data["nivel"],
+                    quiz_pregunta_contenido=question_data["pregunta"] #se encripta en el modelo
+                    
+                )
+
+                db.session.add(new_question)  # Agrego el nuevo usuario a la sesión de la base de datos
+
+            db.session.commit()  # Realiza la transacción
+
+            return jsonify({"message": "Questions added successfully"}), 201
+
+        except Exception as e:
+            db.session.rollback()  # Revierte la transacción en caso de error
+            return jsonify({"error": str(e)}), 500
+
+    return jsonify({"error": "Invalid file format"}), 400           
+
 
 @pregunta_bp.route('/pregunta', methods=["POST"])
 @admin_permits
