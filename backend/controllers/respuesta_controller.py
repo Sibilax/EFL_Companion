@@ -2,12 +2,71 @@ from flask import Blueprint, request, jsonify
 from extensions import db  
 from marshmallow.exceptions import ValidationError
 from sqlalchemy.exc import IntegrityError
+import csv
 
 from models.quiz_respuesta import QuizRespuesta
 from schemas.quiz_respuesta_schema import quiz_respuesta_schema, quiz_respuestas_schema  
 from decorators.admin_permits import admin_permits
 
 respuesta_bp = Blueprint('respuesta', __name__)
+
+
+@respuesta_bp.route('/respuestas/csv', methods=["POST"])
+@admin_permits
+def register_question_csv():
+    file = request.files.get('file')
+
+    if not file or file.filename == '':
+        return jsonify({"error": "No file has been selected"}), 400
+
+    if file and file.filename.endswith('.csv'):
+        try:
+            csv_file = csv.reader(file.stream.read().decode('utf-8-sig').splitlines())
+            next(csv_file)
+
+            answers = []
+
+            for row in csv_file:
+                if len(row) < 4:
+                    continue
+
+                quiz_respuesta_opcion, quiz_respuesta_contenido, quiz_respuesta_correcta, quiz_respuesta_pregunta_id = row
+
+                # Validaciones
+                if not quiz_respuesta_opcion or not quiz_respuesta_contenido:
+                    raise ValueError("Invalid data: empty option or content.")
+
+                quiz_respuesta_correcta = int(quiz_respuesta_correcta)  # sin esto no funciona
+                quiz_respuesta_pregunta_id = int(quiz_respuesta_pregunta_id)  # en los anteriores funcionó porque el id se generaba automáticamente
+
+                answers.append({
+                    "opcion": quiz_respuesta_opcion, 
+                    "contenido": quiz_respuesta_contenido, 
+                    "isCorrect": quiz_respuesta_correcta, 
+                    "questionID": quiz_respuesta_pregunta_id
+                })
+
+            for answer_data in answers:
+                new_answer = QuizRespuesta(
+                    quiz_respuesta_opcion=answer_data["opcion"],
+                    quiz_respuesta_contenido=answer_data["contenido"],
+                    quiz_respuesta_correcta=answer_data["isCorrect"],
+                    quiz_respuesta_pregunta_id=answer_data["questionID"],
+                )
+
+                db.session.add(new_answer)
+
+            db.session.commit()
+
+            return jsonify({"message": "Answer added successfully"}), 201
+
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({"error": str(e), "message": "An error occurred while processing the CSV."}), 500
+
+    return jsonify({"error": "Invalid file format"}), 400
+
+
 
 @respuesta_bp.route('/respuesta', methods=["POST"])
 @admin_permits
@@ -53,7 +112,7 @@ def get_quiz_respuesta(quiz_respuesta_id):
 
 @respuesta_bp.route('/respuestas', methods=['GET'])
 def get_respuestas():
-    limit = request.args.get('limit', default=10, type=int)
+    limit = request.args.get('limit', default=20, type=int)
     offset = request.args.get('offset', default=0, type=int)
 
     respuestas = QuizRespuesta.query.limit(limit).offset(offset).all()
@@ -124,11 +183,11 @@ def update_respuesta(quiz_respuesta_id):
         if not answer:
             return jsonify({"error": "Respuesta not found"}), 404
 
-        if respuesta:
+        if respuesta is not None:
             answer.quiz_respuesta_contenido = respuesta
         if es_correcta is not None:  # Tener en cuenta que es_correcta puede ser False
             answer.quiz_respuesta_correcta = es_correcta
-        if respuesta_opcion:
+        if respuesta_opcion is not None:
             answer.quiz_respuesta_opcion = respuesta_opcion
 
         db.session.commit()

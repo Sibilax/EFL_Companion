@@ -49,7 +49,7 @@ const QuestionCrud: React.FC = () => {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0]; // Accede al primer archivo seleccionado
+    const selectedFile = e.target.files?.[0]; // Accede al primer archivo seleccionado del evento
     if (selectedFile) {
       setFile(selectedFile); // Actualiza el estado con el archivo
     }
@@ -62,7 +62,7 @@ const QuestionCrud: React.FC = () => {
     formData.append("file", file); //adjunto el archivo file(el real) del campo o key "file"
 
     try {
-      setLoading(true); //para q al ejecutar la funcións e pueda deshabilitar el envío
+      setLoading(true); //para q al ejecutar la función se pueda deshabilitar el envío
       await axios.post("http://localhost:5000/preguntas/csv", formData, config);
       alert("Questions added successfully");
     } catch (error) {
@@ -312,14 +312,18 @@ const QuestionCrud: React.FC = () => {
 
       {activeTab === "listWithAnswers" && (
         <div>
+          {" "}
+          {/* CREAR INTERFAZ - AGREGAR DIVS PARA ESTILOS*/}
           <h2>List of questions with answers</h2>
           <ul>
             {questions.map((question) => (
-              <li key={question.quiz_pregunta_id}>
-                <strong>ID:</strong> {question.quiz_pregunta_id} <br />
-                <strong>Level:</strong> {question.quiz_pregunta_nivel} <br />
-                <strong>Content:</strong> {question.quiz_pregunta_contenido}{" "}
+              <li key={question.pregunta.quiz_pregunta_id}>
+                {" "}
+                <strong>ID:</strong> {question.pregunta.quiz_pregunta_id} <br />
+                <strong>Level:</strong> {question.pregunta.quiz_pregunta_nivel}{" "}
                 <br />
+                <strong>Content:</strong>{" "}
+                {question.pregunta.quiz_pregunta_contenido} <br />
                 <strong>Answers:</strong>
                 <ul>
                   {question.respuestas?.map((respuesta) => (

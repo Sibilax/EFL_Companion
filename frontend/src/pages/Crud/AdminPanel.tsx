@@ -6,7 +6,6 @@ import {
   VideoCrud,
   TagCrud,
   CourseCrud,
-  AnswerCrud,
   QuestionCrud,
 } from "./index";
 
@@ -14,15 +13,7 @@ import "../../styles/AdminPanel.scss";
 
 const AdminPanel: React.FC = () => {
   const [activeTab, setActiveTab] = useState<
-    | "admin"
-    | "user"
-    | "blog"
-    | "video"
-    | "tag"
-    | "course"
-    | "answer"
-    | "question"
-    | null
+    "admin" | "user" | "blog" | "video" | "tag" | "course" | "question" | null
   >(null);
 
   return (
@@ -35,7 +26,6 @@ const AdminPanel: React.FC = () => {
         <button onClick={() => setActiveTab("video")}>Manage Videos</button>
         <button onClick={() => setActiveTab("tag")}>Manage Tags</button>
         <button onClick={() => setActiveTab("course")}>Manage Courses</button>
-        <button onClick={() => setActiveTab("answer")}>Manage Answers</button>
         <button onClick={() => setActiveTab("question")}>
           Manage Questions
         </button>
@@ -47,7 +37,6 @@ const AdminPanel: React.FC = () => {
       {activeTab === "video" && <VideoCrud />}
       {activeTab === "tag" && <TagCrud />}
       {activeTab === "course" && <CourseCrud />}
-      {activeTab === "answer" && <AnswerCrud />}
       {activeTab === "question" && <QuestionCrud />}
     </div>
   );
