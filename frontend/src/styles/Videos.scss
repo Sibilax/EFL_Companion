@@ -2,12 +2,15 @@
 @use './Mixins' as *;
 
 .videos-wrapper {
-  padding: 50px;
   display: flex;
   flex-direction: column;
+  background-color: var.$lilac;
+  width: 100vw;
+  height: 100vh;
 
   h1 {
    @include h1-style;
+   margin-top: 3em;
   }
 
 }
@@ -19,15 +22,18 @@
   margin-bottom: 20px;
   border-radius: 5px;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); 
+  margin-right: 10em;
+  margin-left: 10em;
+  
 
   h2 {
     font-family: 'Londrina shadow', sans-serif;
     font-size: 1.8em;
     color: var.$spinner;
-    margin-bottom: 20px;
+    margin-bottom: 1em;
   }
 
-  div {
+  .video-content-summary {
     font-size: 1.1em;
     line-height: 1.6;
     color: var.$darkPurple;
@@ -38,6 +44,7 @@
     text-decoration: none;
     color: var.$btn-color;
     font-weight: bold;
+    font-size: 1.3em;
     transition: color 0.3s ease;
   }
 
