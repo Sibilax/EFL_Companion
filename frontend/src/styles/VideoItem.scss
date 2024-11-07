@@ -4,23 +4,33 @@
 .video-wrapper {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    padding: 10rem;
+    width: 100%;  
+    min-height: 100vh;  
+    background-color: var.$background-color;
+
+    .video-wrapper-items{
+        @include text-container-style;
     
 
-    .video_iframe{
-        display: flex;
-        justify-content: center;
-    }
+        .video_iframe{
+            display: flex;
+            justify-content: center;
+            padding-bottom: 3em;
+        }
 
-    h1 {
-        margin-top: 12vh;
-        @include h1-style;
-    }
+        h1 {
+            margin-top: 1vh;
+            @include h1-style;
+            padding-bottom: 0.8em;
+        }
 
-    .video-content p {
-        margin-top: 1rem;
-        color: var.$text-color;
-        padding: 1rem;
-    }
+        .video-content p {
+            @include paragraph-style;
+        }
+
+    }   
 
 }
 

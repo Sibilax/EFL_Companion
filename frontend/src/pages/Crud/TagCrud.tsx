@@ -5,21 +5,23 @@ import axios from "axios";
 interface Tag {
   tag_id: number;
   tag_name: string;
-  resource_type?: string; 
+  resource_type?: string;
 }
 
 const TagCrud: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<"create" | "get" | "delete" | "list">("create");
+  const [activeTab, setActiveTab] = useState<
+    "create" | "get" | "delete" | "list"
+  >("create");
   const [formData, setFormData] = useState({
     tag_name: "",
     resource_type: "",
     resource_id: "",
   });
   const [currentTagId, setCurrentTagId] = useState<number | null>(null);
-  const [deleteId, setDeleteId] = useState<string>(""); 
-  const [allTags, setAllTags] = useState<Tag[]>([]); 
-  const [specificTag, setSpecificTag] = useState<Tag | null>(null); 
-  const [errorMessage, setErrorMessage] = useState<string | null>(null); 
+  const [deleteId, setDeleteId] = useState<string>("");
+  const [allTags, setAllTags] = useState<Tag[]>([]);
+  const [specificTag, setSpecificTag] = useState<Tag | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const adminToken = localStorage.getItem("adminToken");
 
@@ -29,9 +31,9 @@ const TagCrud: React.FC = () => {
     },
   };
 
-  
-  
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -43,7 +45,7 @@ const TagCrud: React.FC = () => {
   const handleCreate = async () => {
     try {
       await axios.post(
-        "http://localhost:5000/tag", 
+        "http://localhost:5000/tag",
         {
           tag_name: formData.tag_name,
           resource: formData.resource_type,
@@ -58,10 +60,9 @@ const TagCrud: React.FC = () => {
     }
   };
 
-  
   const fetchAllTags = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/tags", config); 
+      const response = await axios.get("http://localhost:5000/tags", config);
       if (response.data && Array.isArray(response.data)) {
         setAllTags(response.data); // Almaceno los tags obtenidos
         setErrorMessage(null); // Limpiar mensaje de error
@@ -80,10 +81,10 @@ const TagCrud: React.FC = () => {
       const response = await axios.get(
         `http://localhost:5000/tag/${currentTagId}`,
         config
-      ); 
+      );
       if (response.data) {
-        setSpecificTag(response.data); 
-        setErrorMessage(null); 
+        setSpecificTag(response.data);
+        setErrorMessage(null);
       } else {
         alert("Tag not found.");
       }
@@ -94,16 +95,15 @@ const TagCrud: React.FC = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:5000/tag/${id}`, config); 
+      await axios.delete(`http://localhost:5000/tag/${id}`, config);
       alert("Tag deleted successfully");
-      fetchAllTags(); 
+      fetchAllTags();
       setDeleteId(""); // Limpiar campo después de eliminar
     } catch {
       alert("Error deleting tag");
     }
   };
 
-  
   const resetForm = () => {
     setFormData({
       tag_name: "",
@@ -167,7 +167,7 @@ const TagCrud: React.FC = () => {
       )}
 
       {activeTab === "list" && (
-        <div>
+        <div className="crud-list">
           <h2>List of Tags</h2>
           {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
           <ul>
@@ -176,7 +176,8 @@ const TagCrud: React.FC = () => {
                 <li key={tag.tag_id}>
                   <strong>ID:</strong> {tag.tag_id} {" - "}
                   <strong>Name:</strong> {tag.tag_name} {" - "}
-                  <strong>Type of resource:</strong> {tag.resource_type || "N/A"}
+                  <strong>Type of resource:</strong>{" "}
+                  {tag.resource_type || "N/A"}
                 </li>
               ))}
           </ul>

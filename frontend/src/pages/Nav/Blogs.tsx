@@ -82,21 +82,23 @@ const Blogs: React.FC = () => {
 
   return (
     <div className="blogs-wrapper">
-      <h1>Blogs</h1>
-      {blogs.map((blog) => (
-        <div key={blog.blog_id} className="blog-item">
-          <h2>{blog.blog_title}</h2>
-          <p>{blog.blog_content.slice(0, 1000)}...</p>
-          <Link to={`/blog/${blog.blog_id}`}>Read More</Link>
-        </div>
-      ))}
-      {loading && (
-        <div className="loading-container">
-          <FaSpinner className="spinner" />
-          <p>Loading...</p>
-        </div>
-      )}
-      {!loadMore && <p>No more blogs to load.</p>}{" "}
+      <div className="blogs-container">
+        <h1>Blogs</h1>
+        {blogs.map((blog) => (
+          <div key={blog.blog_id} className="blog-item">
+            <h2>{blog.blog_title}</h2>
+            <p>{blog.blog_content.slice(0, 1000)}...</p>
+            <Link to={`/blog/${blog.blog_id}`}>Read More</Link>
+          </div>
+        ))}
+        {loading && (
+          <div className="loading-container">
+            <FaSpinner className="spinner" />
+            <p>Loading...</p>
+          </div>
+        )}
+        {!loadMore && <p>No more blogs to load.</p>}{" "}
+      </div>
     </div>
   );
 };

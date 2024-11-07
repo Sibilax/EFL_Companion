@@ -1,4 +1,5 @@
 @use './variables' as var;
+@use './Mixins' as *;
 
 .navbar-wrapper {
   display: flex;
@@ -34,7 +35,7 @@
 
       .sitename{
         font-size: 2em;
-        font-family: 'Rubik Doodle Triangles', Arial, sans-serif;
+        font-family: "Baloo 2", Arial, sans-serif;
       }
       
     }
@@ -51,7 +52,7 @@
       text-decoration: none; /* Quitar subrayado */
       color: var.$spinner;  
       font-family: 'urbanist', sans-serif; 
-      font-weight: bold;
+      font-weight: 800;
       font-size: 1.2rem;
       transition: color 0.3s ease;
       padding: 0.5em;
@@ -77,6 +78,8 @@
 
   .active {
     color: var.$darkPurple;
+    border-bottom: 2px solid var.$darkPurple;
+    
     
   }
 
@@ -88,20 +91,10 @@
   }
 
   button {
+    @include button-style;
     padding: 10px 20px;
     margin-right: 2em;
-    border-radius: 100px;
-    border: 1px solid #ccc;
-    background-color:var.$lilac;
-    cursor: pointer;
-    font-size: 1rem;
-    white-space: nowrap;
-    color: var.$text-color;
-
-    &:hover {
-      background-color: var.$spinner;
-      color: #fff;
-    }
+      
   }
   
 }

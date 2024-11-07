@@ -190,7 +190,7 @@ const UserCrud: React.FC = () => {
       )}
 
       {activeTab === "list" && (
-        <div className="crud-list">
+        <div>
           <h2>Users List</h2>
           <div className="crud-buttons">
             <button onClick={handleList}>Show Users</button>
@@ -198,50 +198,52 @@ const UserCrud: React.FC = () => {
           {loading ? (
             <Loading />
           ) : (
-            <ul className="user-list">
-              {users.map((user: any) => (
-                <li key={user.user_id}>
-                  <div>
-                    <strong>ID:</strong> {user.user_id}
-                  </div>
+            <div className="crud-list">
+              <ul>
+                {users.map((user: any) => (
+                  <li key={user.user_id}>
+                    <div>
+                      <strong>ID:</strong> {user.user_id}
+                    </div>
 
-                  <div>
-                    <strong>Name: </strong>
-                    {user.user_name}
-                  </div>
+                    <div>
+                      <strong>Name: </strong>
+                      {user.user_name}
+                    </div>
 
-                  <div>
-                    <strong>Email: </strong>
-                    {user.user_email}
-                  </div>
+                    <div>
+                      <strong>Email: </strong>
+                      {user.user_email}
+                    </div>
 
-                  <div className="button-container">
-                    <button
-                      onClick={() => {
-                        setUserId(user.user_id);
-                        const confirmDelete = window.confirm(
-                          `Do you want to delete the user with the follwing ID: ${user.user_id}?`
-                        );
-                        if (confirmDelete) {
-                          handleDelete();
-                        }
-                      }}
-                    >
-                      Delete User
-                    </button>
+                    <div className="crud-buttons">
+                      <button
+                        onClick={() => {
+                          setUserId(user.user_id);
+                          const confirmDelete = window.confirm(
+                            `Do you want to delete the user with the follwing ID: ${user.user_id}?`
+                          );
+                          if (confirmDelete) {
+                            handleDelete();
+                          }
+                        }}
+                      >
+                        Delete User
+                      </button>
 
-                    <button
-                      onClick={() => {
-                        setUserId(user.user_id);
-                        setActiveTab("update");
-                      }}
-                    >
-                      Update User
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                      <button
+                        onClick={() => {
+                          setUserId(user.user_id);
+                          setActiveTab("update");
+                        }}
+                      >
+                        Update User
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </div>
       )}

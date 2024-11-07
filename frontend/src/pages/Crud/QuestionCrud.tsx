@@ -261,7 +261,7 @@ const QuestionCrud: React.FC = () => {
 
           <div className="crud-buttons">
             <button onClick={handleUploadQuestionCSV} disabled={loading}>
-              {/*desahabilito la función mientras carga */}
+              {/*deshabilito la función mientras carga */}
               Upload CSV
             </button>
           </div>
@@ -296,7 +296,7 @@ const QuestionCrud: React.FC = () => {
       )}
 
       {activeTab === "list" && (
-        <div>
+        <div className="crud-list">
           <h2>List of Questions</h2>
           <ul>
             {questions.map((question) => (
@@ -311,14 +311,13 @@ const QuestionCrud: React.FC = () => {
       )}
 
       {activeTab === "listWithAnswers" && (
-        <div>
-          {" "}
-          {/* CREAR INTERFAZ - AGREGAR DIVS PARA ESTILOS*/}
+        <div className="crud-list">
           <h2>List of questions with answers</h2>
           <ul>
             {questions.map((question) => (
               <li key={question.pregunta.quiz_pregunta_id}>
                 {" "}
+                {/*respuestas = db.relationship('QuizRespuesta', cascade="all, delete", backref='pregunta')*/}
                 <strong>ID:</strong> {question.pregunta.quiz_pregunta_id} <br />
                 <strong>Level:</strong> {question.pregunta.quiz_pregunta_nivel}{" "}
                 <br />
@@ -328,7 +327,7 @@ const QuestionCrud: React.FC = () => {
                 <ul>
                   {question.respuestas?.map((respuesta) => (
                     <li key={respuesta.quiz_respuesta_id}>
-                      {respuesta.quiz_respuesta_opcion} -{" "}
+                      <strong>{respuesta.quiz_respuesta_opcion})</strong>{" "}
                       {respuesta.quiz_respuesta_correcta
                         ? "Correcta"
                         : "Incorrecta"}
@@ -350,9 +349,11 @@ const QuestionCrud: React.FC = () => {
             placeholder="ID de la Pregunta"
             onChange={(e) => setQuestionId(e.target.value)}
           />
-          <button onClick={handleGetQuestion}>Fetch Question</button>
+          <div className="crud-buttons">
+            <button onClick={handleGetQuestion}>Fetch Question</button>
+          </div>
           {singleQuestion && (
-            <div>
+            <div className="crud-list">
               <h3>Question:</h3>
               <p>ID: {singleQuestion.quiz_pregunta_id}</p>
               <p>Content: {singleQuestion.quiz_pregunta_contenido}</p>
@@ -365,40 +366,49 @@ const QuestionCrud: React.FC = () => {
       {activeTab === "delete" && (
         <div className="crud-inputs">
           <h2>Delete Question</h2>
-          <input
-            type="text"
-            value={questionId}
-            placeholder="ID de la Pregunta"
-            onChange={(e) => setQuestionId(e.target.value)}
-          />
-          <button onClick={handleDelete}>Delete Question</button>
+          <div className="input-group">
+            <input
+              type="text"
+              value={questionId}
+              placeholder="ID de la Pregunta"
+              onChange={(e) => setQuestionId(e.target.value)}
+            />
+          </div>
+
+          <div className="crud-buttons">
+            <button onClick={handleDelete}>Delete Question</button>
+          </div>
         </div>
       )}
 
       {activeTab === "update" && (
-        <div>
+        <div className="crud-inputs">
           <h2>Update Question</h2>
-          <input
-            type="text"
-            value={questionId}
-            placeholder="Question ID"
-            onChange={(e) => setQuestionId(e.target.value)}
-          />
-          <input
-            type="text"
-            name="quiz_pregunta_contenido"
-            value={formData.quiz_pregunta_contenido || ""}
-            placeholder="New content"
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            name="quiz_pregunta_nivel"
-            value={formData.quiz_pregunta_nivel || ""}
-            placeholder="New level"
-            onChange={handleChange}
-          />
-          <button onClick={handleUpdate}>Update Question</button>
+          <div className="input-group">
+            <input
+              type="text"
+              value={questionId}
+              placeholder="Question ID"
+              onChange={(e) => setQuestionId(e.target.value)}
+            />
+            <input
+              type="text"
+              name="quiz_pregunta_contenido"
+              value={formData.quiz_pregunta_contenido || ""}
+              placeholder="New content"
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              name="quiz_pregunta_nivel"
+              value={formData.quiz_pregunta_nivel || ""}
+              placeholder="New level"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="crud-buttons">
+            <button onClick={handleUpdate}>Update Question</button>
+          </div>
         </div>
       )}
     </div>

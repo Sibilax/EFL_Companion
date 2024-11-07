@@ -1,6 +1,5 @@
 import "../styles/BlogDetails.scss";
 
-
 interface BlogProps {
   blog: {
     blog_id: number;
@@ -20,20 +19,22 @@ const BlogDetails: React.FC<BlogProps> = ({ blog }) => {
       : `data:image/png;base64,${blog.blog_img}`;
 
   return (
-    <div className="blog_item_result">
-      <h1>{blog.blog_title}</h1>
+    <div className="blog_item_result_wrapper">
+        <div className="blog_item_result_container">
+          <h1>{blog.blog_title}</h1>
 
-       {imageUrl && (
-        <div className="blog_item_img">
-          <img
-            src={imageUrl}
-            alt={`Image: ${blog.blog_title}`}
-            style={{ width: "500px", height: "auto", objectFit: "cover" }}
-          />
+          {imageUrl && (
+            <div className="blog_item_img">
+              <img
+                src={imageUrl}
+                alt={`Image: ${blog.blog_title}`}
+                style={{ width: "500px", height: "auto", objectFit: "cover" }}
+              />
+            </div>
+          )}
+
+          <p>{blog.blog_content}</p>
         </div>
-      )}
-
-      <p>{blog.blog_content}</p>
     </div>
   );
 };

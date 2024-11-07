@@ -2,73 +2,85 @@
 @use './Mixins' as *;
 
 .blogs-wrapper {
+    background-color: var.$lilac;
     max-width: 100%;
     height: auto;
     padding: 2em;
     display: flex;
-    flex-direction: column;
-    padding-bottom: 12vh;
-    
-    h1 {
-     @include h1-style;
-    }
-  
-  
-
-  
-  .blog-item {
-    background-color: #f9f9f9;
-    width: 100%;
-    padding: 0.5em;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-  
-  
-    h2 {
-      font-family: 'Londrina shadow', sans-serif;
-      font-size: 1.8em;
-      color: var.$spinner;
-      margin-bottom: 20px;
-    }
-    
-    p {
-      font-size: 1.1em;
-      line-height: 1.6;
-      color: var.$darkPurple;
-      margin-bottom: 20px;
-    }
-  }
-  
-  .blog-item a {
-    text-decoration: none; /* Eliminar el subrayado */
-    color: var.$btn-color; 
-    font-weight: bold;
-    transition: color 0.3s ease;
-  }
-  
-  .blog-item a:hover {
-    color: var.$spinner; 
-  }
-  
-  
-  .loading-container {
-    display: flex;
     justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .spinner {
-    font-size: 2em;
-    color: var.$spinner;
-  }
-  
-  p {
-    margin-left: 10px;
-    font-size: 1.2em;
-    color: #666;
-  }
+    padding-bottom: 12vh;
+
+    .blogs-container {
+      display: flex;
+      
+      flex-direction: column;
+      
+      @include text-container-style;
+      background-color: var.$lilac;
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+      padding: 0;
+    
+      
+      h1 {
+      @include h1-style;
+      margin-top: 4rem;
+      
+      }
+    
+      
+      .blog-item {
+        @include text-container-style;
+        background-color: #f9f9f9;
+        display: flex;
+        flex-direction: column;
+        max-width: 80rem;
+      }
+
+      .blog-item p{
+        color: var.$text-color;
+        font-size: 1.2em;
+        line-height: 1.6;
+        justify-content: center;
+        text-align: justify; //bloque simil periodico
+        margin-top: 1rem;
+        margin-bottom: 5em;
+        padding-right: 2rem;
+        padding-left: 2rem;
+        padding-top: 2rem;
+      }
+      
+      .blog-item a {
+        text-decoration: none; /* Eliminar el subrayado */
+        color: var.$btn-color; 
+        font-weight: bold;
+        transition: color 0.3s ease;
+        font-size: 1.3em;
+      }
+      
+      .blog-item a:hover {
+        color: var.$spinner; 
+      }
+
+      .blog-item h2 {
+        @include h2-style;
+        margin-top: 1.3rem;
+      }
+      
+      
+      .loading-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+      }
+      
+      .spinner {
+        font-size: 2em;
+        color: var.$spinner;
+      }
+      
+     
+    }
 }
   
 

@@ -5,15 +5,16 @@
   padding: 10px 20px;
   border-radius: 100px;
   border: 1px solid #ccc;
-  background-color: var.$lilac;
+  background-color: var.$spinner;
   cursor: pointer;
   font-size: 1rem;
+  font-weight: 600;
   white-space: nowrap;
-  color: var.$text-color;
+  color: var.$navbar-color;
 
   &:hover {
-    background-color: var.$spinner;
-    color: var.$navbar-color;
+    background-color: var.$lilac;
+    color: var.$text-color;
 
   }
 }
@@ -51,4 +52,26 @@
   font-size: 2rem;
   margin-bottom: 20px;
   font-family: 'Londrina shadow', sans-serif;
+}
+
+@mixin text-container-style {
+  width: auto;
+  height: auto;
+  margin-top: 3.5rem;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: #fafafa;
+  border-radius: 8px;
+  box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.08);
+  padding: 40px;
+}
+
+@mixin paragraph-style {
+  color: var.$text-color;
+  font-size: 1.2em;
+  line-height: 1.6;
+  text-align: justify; //bloque simil periodico
+  margin-top: 1rem;
+  max-width: 70rem;
+  margin-bottom: 5em;
 }

@@ -1,42 +1,43 @@
 @use './variables' as var;
 @use './Mixins' as *;
 
-.blog_item_result {
+.blog_item_result_wrapper {
+   
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem;
+    padding: 10rem;
     width: 100%;  
     min-height: 100vh;  
     background-color: var.$background-color;
   
+    .blog_item_result_container{
+      @include text-container-style;
+  
 
-  h1 {
-    @include h1-style;
-  }
+      h1 {
+        @include h1-style;
+        margin-top: 0.5rem;
+        margin-bottom: 3rem;
+      }
 
-  .blog_item_img {
-    display: flex;
-    justify-content: center;
-    margin: 1rem;
+      .blog_item_img {
+        display: flex;
+        justify-content: center;
+        margin: 1rem;
 
-    img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  
+        img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 8px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  
+        }
+      }
+
+      p {
+        @include paragraph-style;
+      }
     }
-  }
-
-  p {
-    color: var.$text-color;
-    font-size: 1.2em;
-    line-height: 1.6;
-    text-align: justify; //bloque simil periodico
-    margin-top: 1rem;
-    max-width: 800px;
-    margin-bottom: 5em;
-  }
 }
 
 

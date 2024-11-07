@@ -12,9 +12,11 @@ body {
   overflow-x: hidden;
   margin: 0; 
   padding: 0; 
-  
 }
 
+body p {
+    display: inline;
+  }
 
 .error-message {
   margin-top: 1em;

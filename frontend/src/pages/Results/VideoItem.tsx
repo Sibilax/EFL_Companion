@@ -35,37 +35,39 @@ const VideoItem = () => {
   if (loading) return <p>Loading...</p>;
   if (!video) return <p>Video not found.</p>;
 
-   const embedUrl = `https://www.youtube.com/embed/${video.video_url}`;
+  //const embedUrl = `https://www.youtube.com/embed/${video.video_url}`;
 
   return (
     <div className="video-wrapper">
-      {error && <p className="error-message">{error}</p>}
+      <div className="video-wrapper-items">
+        {error && <p className="error-message">{error}</p>}
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : !video ? (
-        <p>Video not found.</p>
-      ) : (
-        <>
-          <h1>{video.video_title}</h1>
-          <div className="video_iframe">
-            <iframe
-              src={`https://www.youtube.com/embed/${video.video_url}`}
-              title={video.video_title}
-              width="560"
-              height="315"
-              style={{ border: "none" }}
-              allowFullScreen
-            ></iframe>
-          </div>
-          {video.video_content && (
-            <div
-              className="video-content"
-              dangerouslySetInnerHTML={{ __html: video.video_content }}
-            />
-          )}
-        </>
-      )}
+        {loading ? (
+          <p>Loading...</p>
+        ) : !video ? (
+          <p>Video not found.</p>
+        ) : (
+          <>
+            <h1>{video.video_title}</h1>
+            <div className="video_iframe">
+              <iframe
+                src={`https://www.youtube.com/embed/${video.video_url}`}
+                title={video.video_title}
+                width="560"
+                height="315"
+                style={{ border: "none" }}
+                allowFullScreen
+              ></iframe>
+            </div>
+            {video.video_content && (
+              <div
+                className="video-content"
+                dangerouslySetInnerHTML={{ __html: video.video_content }}
+              />
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 };

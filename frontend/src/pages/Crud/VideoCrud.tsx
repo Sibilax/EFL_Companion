@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const VideoCrud: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<"create" | "list" | "delete" | "update">("list");
+  const [activeTab, setActiveTab] = useState<
+    "create" | "list" | "delete" | "update"
+  >("list");
   const [formData, setFormData] = useState({
     video_title: "",
     video_content: "",
@@ -10,7 +12,7 @@ const VideoCrud: React.FC = () => {
   });
   const [videos, setVideos] = useState<any[]>([]);
   const [videoId, setVideoId] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); //revisar
 
   const adminToken = localStorage.getItem("adminToken");
 
@@ -61,7 +63,8 @@ const VideoCrud: React.FC = () => {
     const updatedData: any = {};
 
     if (formData.video_title) updatedData.video_title = formData.video_title;
-    if (formData.video_content) updatedData.video_content = formData.video_content;
+    if (formData.video_content)
+      updatedData.video_content = formData.video_content;
     if (formData.video_url) updatedData.video_url = formData.video_url;
 
     if (!videoId) {
@@ -70,7 +73,11 @@ const VideoCrud: React.FC = () => {
     }
 
     try {
-      await axios.put(`http://localhost:5000/video/${videoId}`, updatedData, config);
+      await axios.put(
+        `http://localhost:5000/video/${videoId}`,
+        updatedData,
+        config
+      );
       alert("Video updated successfully");
 
       setFormData({
@@ -134,7 +141,7 @@ const VideoCrud: React.FC = () => {
       )}
 
       {activeTab === "list" && (
-        <div className="crud-buttons">
+        <div className="crud-list">
           <ul>
             {videos.map((video: any) => (
               <li key={video.id}>
@@ -147,7 +154,11 @@ const VideoCrud: React.FC = () => {
                   {video.video_content}
                 </p>
                 Link:{" "}
-                <a href={video.video_url} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={video.video_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Watch Video
                 </a>
               </li>
