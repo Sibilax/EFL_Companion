@@ -7,19 +7,22 @@ const SearchBar: React.FC = () => {
   const [query, setQuery] = useState("");
   const navigate = useNavigate(); // Hook para la redirección
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => { 
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (query.trim()) {
       // elimino los espacios vacíos al final de la cadena query para garantizar q siempre haya algo q buscar, el espacio entre palabras se mantiene, solo se quitan el inicial y final
       navigate(`/results?query=${encodeURIComponent(query)}`); // Redirige a /results con el query en la URL
     }
+    setQuery("");
   };
 
-  const handleIconClick = (e: React.MouseEvent<SVGElement>) => { //debo indicar el evento y el tipo de dato(icono)
+  const handleIconClick = (e: React.MouseEvent<SVGElement>) => {
+    //debo indicar el evento y el tipo de dato(icono)
     e.preventDefault(); // Evita comportamiento predeterminado al darse el evento (refrescar)
     if (query.trim()) {
       navigate(`/results?query=${encodeURIComponent(query)}`); // Redirige a /results con el query en la URL
     }
+    setQuery("");
   };
 
   return (
